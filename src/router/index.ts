@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import Config from '@/views/Config/index.vue'
+import Config from '@/views/config/config.vue'
 import Upload from '@/views/Upload/index.vue'
 import Management from '@/views/Management/index.vue'
 import Tutorials from '@/views/Tutorials/index.vue'

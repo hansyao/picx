@@ -1,13 +1,12 @@
 <template>
   <div class="page-container config-page-container">
     <!-- Token -->
-    <el-form label-width="70px" label-position="right" class="config-form">
+    <el-form :label-width="formLabelWidth" label-position="right" class="config-form">
       <el-form-item label="Token">
         <el-input
           v-model="userConfigInfo.token"
           clearable
-          show-password
-          autofocus
+          :autofocus="!userConfigInfo.token"
         ></el-input>
       </el-form-item>
 
@@ -26,7 +25,7 @@
 
     <!-- 基本信息 -->
     <el-form
-      label-width="70px"
+      :label-width="formLabelWidth"
       label-position="right"
       v-if="userConfigInfo.token"
       v-loading="loading"
@@ -61,7 +60,7 @@
 
     <!-- 目录 -->
     <el-form
-      label-width="70px"
+      :label-width="formLabelWidth"
       label-position="right"
       v-if="userConfigInfo.selectedRepos"
       v-loading="dirLoading"
@@ -139,7 +138,7 @@
     </el-form>
 
     <!-- 操作 -->
-    <el-form label-width="70px">
+    <el-form :label-width="formLabelWidth">
       <el-form-item class="operation">
         <el-button plain size="small" @click="reset()" v-if="userConfigInfo.owner">
           重置
@@ -168,19 +167,20 @@ import axios from '@/common/utils/axios'
 import TimeHelper from '@/common/utils/timeHelper'
 
 export default defineComponent({
-  name: 'Config',
+  name: 'config',
 
   setup() {
     const router = useRouter()
     const store = useStore()
 
     const reactiveData = reactive({
+      loading: false,
+      dirLoading: false,
+      formLabelWidth: '70px',
+
       userConfigInfo: computed((): UserConfigInfoModel => store.getters.getUserConfigInfo)
         .value,
       loggingStatus: computed(() => store.getters.getUserConfigInfo).value,
-
-      loading: false,
-      dirLoading: false,
 
       getUserInfo() {
         if (this.userConfigInfo.token) {
@@ -400,5 +400,5 @@ export default defineComponent({
 </script>
 
 <style scoped lang="stylus">
-@import "index.styl"
+@import "config.styl"
 </style>
